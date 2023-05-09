@@ -1,0 +1,38 @@
+a {
+    text-decoration: none;
+    color: black;
+  }
+
+.pagina {
+    height: auto;
+    width: 100%;
+    text-decoration: none;
+}
+
+.navbar {
+    display: flex;
+    flex-direction: row;
+    background-color: red;
+    height: 48px;
+    width: 100%;
+}
+
+.navlinks {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 40%;
+}
+
+.navlinks {
+    margin-left: 30px;
+}
+
+.navrechts {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+    height: 100%;
+    width: 60%;
+}
