@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import PokemonCard from './Pokemon';
+import PokemonCard from './PokemonCard';
 import './style/App.css';
 
 function PokemonOverview() {

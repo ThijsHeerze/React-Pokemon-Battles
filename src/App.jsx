@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Routes } from 'react-router-dom';
-import PokemonCard from './Pokemon';
+import Testing from './Testing';
 import Home from './Home';
 import PokemonOverview from './PokemonOverview';
 import PokemonBattles from './PokemonBattles';
@@ -11,7 +11,7 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/pokemon-test" element={<><PokemonCard url={"https://pokeapi.co/api/v2/pokemon/1"} /><PokemonCard url={"https://pokeapi.co/api/v2/pokemon/6"} /></> } />
+        <Route path="/pokemon-test" element={<Testing/>} />
         <Route path="/pokemons" element={<PokemonOverview />} />
         <Route path="/battle" element={<PokemonBattles />} />
       </Routes>

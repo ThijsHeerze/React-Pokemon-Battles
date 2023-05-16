@@ -1,25 +1,33 @@
 import "./style/Home.css";
-import { Link } from "react-router-dom";
+import { Header } from "./includes/Header.jsx";
 
 const Home = () => {
-  return(
-    <div className="pagina">
-        <div className="navbar">
-            <div className="navlinks">
-                <div className="logo">
-                <Link to="/">Logo</Link>
-                </div>
-            </div>
-            <div className="navrechts">
-                <Link to="/pokemon-test">Pokemon test</Link>
-                <Link to="/pokemons">Pokemons</Link>
-                <Link to="/battle">Battle</Link>
-            </div>
+  <div className="pagina">
+    <div className="boven">
+        <div className="boven_links">
+            {/* Image container */}
         </div>
-        <div className=""></div>
-
+        <div className="boven_rechts">
+            {/* Korte introductie  */}
+        </div>
     </div>
-  );
+    <div className="midden">
+        {/* Extra uitleg + buttons */}
+        <p></p>
+        <button></button>
+        <button></button>
+    </div>
+    <div className="onder">
+        <div className="onder_links">
+            {/* Image spel */}
+        </div>
+        <div className="onder_rechts">
+            {/* Uitleg spel + button */}
+            <p></p>
+            <button></button>
+        </div>
+    </div>
+  </div>
 }
 
 export default Home;
