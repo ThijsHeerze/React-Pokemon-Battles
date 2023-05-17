@@ -1,0 +1,23 @@
+.pagina {
+  display: flex;
+  flex-direction: column;
+}
+
+.boven {
+  display: flex;
+  flex-direction: row;
+}
+
+.boven_links {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  width: 60%;
+}
+
+.boven_rechts {
+  padding: 60px; 
+  padding-top: 100px;
+  height: 100%;
+  width: 40%;
+}

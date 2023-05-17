@@ -1,11 +1,6 @@
-a {
+.navbar a {
     text-decoration: none;
     color: black;
-  }
-
-.pagina {
-    height: auto;
-    width: 100%;
 }
 
 .navbar {

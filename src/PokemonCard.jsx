@@ -11,7 +11,7 @@ const PokemonCard = ({ url }) => {
     fetch(url)
       .then((response) => response.json())
       .then((data) => setPokemon(data));
-  }, [url]);
+  }, []);
   
   return (
     <>

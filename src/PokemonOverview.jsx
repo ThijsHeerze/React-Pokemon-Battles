@@ -1,6 +1,8 @@
+import { Header } from "./includes/Header.jsx";
 import { useEffect, useState } from 'react';
 import PokemonCard from './PokemonCard';
 import './style/App.css';
+import { SearchBar } from './includes/SearchBar.jsx';
 
 function PokemonOverview() {
   var [pokemons, setPokemons] = useState([]);
@@ -69,21 +71,26 @@ function PokemonOverview() {
   const nextDisabled = pokemons.next == null;
 
   return (
-    <div className="pokemon">
-      <h1 className="pokemon-list">Pokedex</h1>
-      <div>
-          <p>{getFirstPokemonIdFromArray(pokemons.results)} tot {getLastPokemonIdFromArray(pokemons.results)} (1000 totaal)</p>
-          <button className='button' onClick={getPreviousResults} disabled={previousDisabled}>Vorige</button>
-          <button className='button' onClick={getNextResults} disabled={nextDisabled}>Volgende</button>
+    <>
+    <Header/>
+    <SearchBar/>
+      <div className="pokemon">
+        <h1 className="pokemon-list">Pokedex</h1>
+        
+          <div>
+            <p>{getFirstPokemonIdFromArray(pokemons.results)} tot {getLastPokemonIdFromArray(pokemons.results)} (1000 totaal)</p>
+            <button className='button' onClick={getPreviousResults} disabled={previousDisabled}>Vorige</button>
+            <button className='button' onClick={getNextResults} disabled={nextDisabled}>Volgende</button>
+          </div>
+        <div className='pokemon-list'>
+          {pokemons.results.map(pokemon => {
+            return (
+              <PokemonCard url={pokemon.url} />
+            )
+          })}
         </div>
-      <div className='pokemon-list'>
-        {pokemons.results.map(pokemon => {
-          return (
-            <PokemonCard url={pokemon.url} />
-          )
-        })}
       </div>
-    </div>
+    </>
   );
 }
 

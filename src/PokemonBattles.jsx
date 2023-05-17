@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Header } from "./includes/Header.jsx";
 import './style/App.css';
 import './Pokemon.ts';
 
@@ -29,6 +30,7 @@ if (loading) {
   
   return (
     <>
+    <Header />
       <div className='pokemon-battles'>
         <h1 className='title-battle'>Pokemon Battles</h1>
       </div>
