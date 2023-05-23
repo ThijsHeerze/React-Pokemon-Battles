@@ -10,14 +10,18 @@
 
 .boven_links {
   display: flex;
-  justify-content: center;
   height: 100%;
-  width: 60%;
+  width: 56%;
 }
 
-.boven_rechts {
-  padding: 60px; 
-  padding-top: 100px;
+.boven_links img {
+  height: 450px;
+}
+
+.boven_rechts { 
+  padding-left: 100px;
+  padding-right: 100px;
+  padding-top: 130px;
   height: 100%;
-  width: 40%;
+  width: 44%;
 }

@@ -1,5 +1,6 @@
 import { Header } from "./includes/Header.jsx";
 import "./style/Home.css";
+import homepageimage from './images/wallpapertest.jpg';
 
 const Home = () => {
   return (
@@ -8,7 +9,7 @@ const Home = () => {
     <div className="pagina">
       <div className="boven">
         <div className="boven_links">
-          <p>Hier komt de image</p>
+        <img src={homepageimage} alt="" />
           {/* Image container */}
         </div>
         <div className="boven_rechts">
