@@ -7,7 +7,7 @@ const PokemonCard = ({ url }) => {
   const [pokemon, setPokemon] = useState(null);
 
   useEffect(() => {
-    console.log("test");
+    // console.log("test");
     fetch(url)
       .then((response) => response.json())
       .then((data) => setPokemon(data));

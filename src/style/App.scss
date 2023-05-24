@@ -1,3 +1,5 @@
+//css for PokemonOverview and PokemonBattles
+
 $primary-color: red;
 
 @mixin center{
@@ -37,4 +39,17 @@ $primary-color: red;
 
 .button:hover {
   background-color: darken($primary-color, 10%);
+}
+
+.container {
+    @include center;
+    margin: 5%;
+
+    
+}
+
+.start-game{
+    .button-start{
+    @include center;
+}
 }

@@ -8,7 +8,7 @@ class Pokemon {
   public moves: Move[];
   public height: number;
   public weight: number;
-  public sprites: { front_default: string, back_default: string };
+  public sprites: { front_default: string; back_default: string };
   public hp: number;
   public maxHp: number;
   public attack: number;
@@ -17,44 +17,46 @@ class Pokemon {
   public specialDefense: number;
   public speed: number;
 
-  // constructor(url: string, species: string, baseExperience: number, moves: { name: string, url: string }[],
-  //             types: string[], height: number, weight: number, sprites: string[], hp: number, attack: number,
-  //             specialAttack: number, defense: number, specialDefense: number, speed: number) {
-  constructor(url: string) {
-    fetch(url)
-      .then((response: Response) => response.json())
-      .then((data) => {
-        this.url = data.url;
-        this.name = capitalizeName(data.name);
-        this.types = data.types.map((type) => new Type(type.type.url));
-        this.baseExperience = data.baseExperience;
-        this.moves = data.moves.slice(0, 4).map((move) => new Move(move.move.url));
-        this.height = data.height;
-        this.weight = data.weight;
-        this.sprites = data.sprites;
-        this.hp = data.stats[0].base_stat;
-        this.maxHp = data.stats[0].base_stat;
-        this.attack = data.stats[1].base_stat;
-        this.defense = data.stats[2].base_stat;
-        this.specialAttack = data.stats[3].base_stat;
-        this.specialDefense = data.stats[4].base_stat;
-        this.speed = data.stats[5].base_stat;
-      });
+  static async create(url: string) {
+    const response = await fetch(url);
+    const data = await response.json();
+    // const url = data.url;
+    const name = capitalizeName(data.name);
+    const types = data.types.map(async (type) => await Type.create(type.type.url));
+    const baseExperience = data.base_experience;
+    const moves = await Promise.all(data.moves.slice(0, 4).map(async (move) => await Move.create(move.move.url)));
+    const height = data.height;
+    const weight = data.weight;
+    const sprites = data.sprites;
+    const hp = data.stats[0].base_stat;
+    const attack = data.stats[1].base_stat;
+    const defense = data.stats[2].base_stat;
+    const specialAttack = data.stats[3].base_stat;
+    const specialDefense = data.stats[4].base_stat;
+    const speed = data.stats[5].base_stat;
 
-    // this.url = url;
-    // this.species = species;
-    // this.baseExperience = baseExperience;
-    // this.moves = moves;
-    // this.types = types;
-    // this.height = height;
-    // this.weight = weight;
-    // this.sprites = sprites;
-    // this.hp = hp;
-    // this.attack = attack;
-    // this.specialAttack = specialAttack;
-    // this.defense = defense;
-    // this.specialDefense = specialDefense;
-    // this.speed = speed;
+    return new Pokemon(url, name, types, baseExperience, moves, height, weight, sprites, hp, attack, defense, specialAttack, specialDefense, speed);
+  }
+  
+  constructor(url: string, name: string, types: Type[], baseExperience: number, moves: Move[],
+              height: number, weight: number, sprites: { front_default: string; back_default: string }, 
+              hp: number, attack: number, defense: number, specialAttack: number, specialDefense: number, 
+              speed: number) {
+    this.url = url;
+    this.name = name;
+    this.baseExperience = baseExperience;
+    this.moves = moves;
+    this.types = types;
+    this.height = height;
+    this.weight = weight;
+    this.sprites = sprites;
+    this.hp = hp;
+    this.maxHp = hp;
+    this.attack = attack;
+    this.specialAttack = specialAttack;
+    this.defense = defense;
+    this.specialDefense = specialDefense;
+    this.speed = speed;
   }
 
   public attackPokemon(move: Move, pokemon: Pokemon) {
@@ -62,7 +64,7 @@ class Pokemon {
   }
 
   public loseHp(hp: number) {
-    Math.max(0, this.hp -= hp);
+    this.hp = Math.max(0, this.hp - hp);
   }
 
   public getHp() {
@@ -87,7 +89,7 @@ class Move {
   public name: string;
   public descriptionLong: string;
   public descriptionShort: string;
-  public catergory: string;
+  public category: string;
   public type: Type;
   public accuracy: number;
   public power: number;
@@ -95,72 +97,91 @@ class Move {
   public priority: number;
   public critRate: number;
 
+  static async create(url: string) {
+    const response = await fetch(url);
+    const data = await response.json();
+    // const url = url;
+    const name = data.name;
+    const descriptionLong = data.effect_entries[0].effect;
+    const descriptionShort = data.effect_entries[0].shortEffect;
+    const category = data.meta.category.name;  // Moet nog een class van gemaakt worden
+    const type = await Type.create(data.type.url);
+    const accuracy = data.accuracy;
+    const power = data.power;
+    const pp = data.pp;
+    const priority = data.priority
+    const critRate = data.meta.crit_rate;
+
+    return new Move(url, name, descriptionLong, descriptionShort, category, type, accuracy, power, pp, priority, critRate);
+  }
+  
   constructor(
     url: string,
-    // name: string,
-    // descriptionLong: string,
-    // descriptionShort: string,
-    // accuracy: number,
-    // power: number,
-    // pp: number,
-    // priority: number,
-    // totalTurns: number,
-    // turn: number
+    name: string,
+    descriptionLong: string,
+    descriptionShort: string,
+    category: string,
+    type: Type,
+    accuracy: number,
+    power: number,
+    pp: number,
+    priority: number,
+    critRate: number
   ) {
-    fetch(url)
-      .then((response: Response) => response.json())
-      .then((data) => {
-        this.url = url;
-        this.name = data.name;
-        this.descriptionLong = data.effect_entries[0].effect;
-        this.descriptionShort = data.effect_entries[0].shortEffect;
-        this.catergory = data.meta.catergory.name;  // Moet nog veranderd worden
-        this.type = new Type(data.type.url)
-        this.accuracy = data.accuracy;
-        this.power = data.power;
-        this.pp = data.pp;
-        this.priority = data.priority
-        this.critRate = data.meta.crit_rate;
-      });
-    
-    // this.url = url;
-    // this.name = name;
-    // this.descriptionLong = descriptionLong;
-    // this.descriptionShort = descriptionShort;
-    // this.accuracy = accuracy;
-    // this.power = power;
-    // this.pp = pp;
-    // this.priority = priority;
-    // this.totalTurns = totalTurns;
-    // this.turn = turn;
+    this.url = url;
+    this.name = name;
+    this.descriptionLong = descriptionLong;
+    this.descriptionShort = descriptionShort;
+    this.category = category;
+    this.type = type;
+    this.accuracy = accuracy;
+    this.power = power;
+    this.pp = pp;
+    this.priority = priority;
+    this.critRate = critRate;
   }
 }
 
 class Type {
   public name: string;
   public damageRelations: {
-    doubleDamageFrom: { name: string; url: string }[],
-    doubleDamageTo: { name: string; url: string }[],
-    halfDamageFrom: { name: string; url: string }[],
-    halfDamageTo: { name: string; url: string }[],
-    noDamageFrom: { name: string; url: string }[],
-    noDamageTo: { name: string; url: string }[],
+    doubleDamageFrom: { name: string; url: string }[];
+    doubleDamageTo: { name: string; url: string }[];
+    halfDamageFrom: { name: string; url: string }[];
+    halfDamageTo: { name: string; url: string }[];
+    noDamageFrom: { name: string; url: string }[];
+    noDamageTo: { name: string; url: string }[];
   };
 
-  constructor(url: string) {
-    fetch(url)
-      .then((response: Response) => response.json())
-      .then((data) => {
-        this.name = data.name;
-        this.damageRelations = {
-          doubleDamageFrom: data.damag_relations.doubleDamageFrom,
-          doubleDamageTo: data.damag_relations.doubleDamageTo,
-          halfDamageFrom: data.damag_relations.halfDamageFrom,
-          halfDamageTo: data.damag_relations.halfDamageToom,
-          noDamageFrom: data.damag_relations.noDamageFrom,
-          noDamageTo: data.damag_relations.noDamageTo
-        }
-      });
+  static async create(url: string) {
+    const response = await fetch(url);
+    const data = await response.json();
+      const name = data.name;
+      const damageRelations = {
+        doubleDamageFrom: data.damage_relations.doubleDamageFrom,
+        doubleDamageTo: data.damage_relations.doubleDamageTo,
+        halfDamageFrom: data.damage_relations.halfDamageFrom,
+        halfDamageTo: data.damage_relations.halfDamageToom,
+        noDamageFrom: data.damage_relations.noDamageFrom,
+        noDamageTo: data.damage_relations.noDamageTo,
+      };
+
+      return new Type(name, damageRelations);
+  }
+
+  constructor(
+    name: string,
+    damageRelations: {
+      doubleDamageFrom: { name: string; url: string }[];
+      doubleDamageTo: { name: string; url: string }[];
+      halfDamageFrom: { name: string; url: string }[];
+      halfDamageTo: { name: string; url: string }[];
+      noDamageFrom: { name: string; url: string }[];
+      noDamageTo: { name: string; url: string }[];
+    }
+  ) {
+    this.name = name;
+    this.damageRelations = damageRelations;
   }
 }
 

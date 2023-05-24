@@ -28,4 +28,17 @@
 
 .button:hover {
   background-color: #cc0000;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 5%;
+}
+
+.start-game .button-start {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }/*# sourceMappingURL=App.css.map */

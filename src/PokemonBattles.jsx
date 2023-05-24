@@ -34,9 +34,41 @@ if (loading) {
       <div className='pokemon-battles'>
         <h1 className='title-battle'>Pokemon Battles</h1>
       </div>
-      <div className='select-pokemon'></div>
-      <div className='set-pokemon'></div>
-      <div className='set-team'></div>
+      <div className='container'>
+        <div className='player-one'>
+          <h2>Player 1</h2>
+          <div className='choose-name'><h2>Choose name</h2></div>
+            <input type='text' placeholder='enter name'></input>
+          <div className='button-choose'>
+            <h3>Choose your pokemon</h3>
+            <h5>max:5</h5>
+            <button className='choose-pokemon'>Choose pokemon</button>
+            <div className='chosen-pokemon'>
+              <h3>Your chosen pokemons:</h3>
+            </div>
+          </div>
+        </div>
+
+        <div className='player-two'>
+          <h2>Player 2</h2>
+          <div className='choose-name'><h2>Choose name</h2></div>
+            <input type='text' placeholder='enter name'></input>
+          <div className='choose-pokemon'>
+            <></>
+            <h3>Choose your pokemons</h3>
+            <h5>max:5</h5>
+            <button className='button-choose'>Choose pokemon</button>
+            <div className='chosen-pokemon'>
+              <h3>Your chosen pokemons:</h3>
+            </div>
+          </div>              
+        </div>
+      </div>
+        <div className='start-game'>
+          <button className='button-start' 
+          //onClick={startGame}
+          >Start game</button>
+        </div> 
     </>
   );
 }

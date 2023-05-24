@@ -21,7 +21,65 @@
 .boven_rechts { 
   padding-left: 100px;
   padding-right: 100px;
-  padding-top: 130px;
+  padding-top: 80px;
   height: 100%;
   width: 44%;
+}
+
+.midden {
+  display: flex;
+  justify-content: center;
+  padding-top: 20px;
+  height: auto;
+  max-width: 100%;
+}
+
+.midden_uitleg {
+  padding-left: 50px;
+  padding-right: 20px;
+  height: 100%;
+  width: 60%;
+}
+
+.midden_buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 40px;
+  padding-right: 40px;
+  width: 40%;
+}
+
+button {
+  background-color: red;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  margin: 4px 4px 4px 4px;
+}
+
+button:hover {
+  background-color: #cc0000;
+}/*# sourceMappingURL=App.css.map */
+
+.onder {
+  display: flex;
+  flex-direction: row;
+  padding-top: 50px;
+}
+
+.onder_links {
+  padding-left: 50px;
+  padding-top: 100px;
+}
+
+.onder_links button {
+  margin-top: 10px;
+  margin-left: 0px;
 }
