@@ -2,15 +2,17 @@ import { useEffect, useState } from 'react';
 import { Header } from "./includes/Header.jsx";
 import './style/App.css';
 import './Pokemon.ts';
+import './PokemonOverview.jsx';
 
 function PokemonBattles(){
     var [pokemon, setPokemons] = useState([]);
+    var [pokemon, getPokemons] = useState([]);
     //var [pokemons, selectPokemons] = useState([]);
     var [player, setPlayer] = useState([]);
     var [loading, setLoading] = useState(true);
 
 useEffect(() => {
-    fetch("https://pokeapi.co/api/v2/pokemon?limit=100")
+    fetch ("https://pokeapi.co/api/v2/pokemon?limit=100")
       .then((response) => response.json())
       .then((pokemon, player) => {
         setPokemons(pokemon);
@@ -25,6 +27,30 @@ if (loading) {
         Loading...
       </div>
     )
+  }
+
+  const getFirstPokemonIdFromArray = (pokemons) => {
+    const pokemon = pokemons[0];
+    let test = pokemon.url.split("/");
+
+    test = test.filter((str) => str !== '');
+    return test[test.length-1];
+  };
+
+  const getLastPokemonIdFromArray = (pokemons) => {
+    const pokemon = pokemons[pokemons.length-1];
+    let test = pokemon.url.split("/");
+
+    test = test.filter((str) => str !== '');
+    return test[test.length-1];
+  };
+
+  const choosePokemons = (pokemons) => {
+    return pokemons;
+  }
+
+  const chosenPokemons = () => {
+
   }
 
   
@@ -54,7 +80,7 @@ if (loading) {
           <div className='choose-name'><h2>Choose name</h2></div>
             <input type='text' placeholder='enter name'></input>
           <div className='choose-pokemon'>
-            <></>
+            
             <h3>Choose your pokemons</h3>
             <h5>max:5</h5>
             <button className='button-choose'>Choose pokemon</button>

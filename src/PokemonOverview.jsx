@@ -2,6 +2,7 @@ import { Header } from "./includes/Header.jsx";
 import { useEffect, useState } from 'react';
 import PokemonCard from './PokemonCard';
 import './style/App.css';
+import './PokemonBattles.jsx';
 
 function PokemonOverview() {
   var [pokemons, setPokemons] = useState([]);

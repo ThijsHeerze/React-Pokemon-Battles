@@ -24,6 +24,9 @@
   text-decoration: none;
   transition: background-color 0.3s ease;
   margin: 4px 4px 4px 4px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .button:hover {
@@ -37,7 +40,7 @@
   margin: 5%;
 }
 
-.start-game .button-start {
+.start-game {
   display: flex;
   align-items: center;
   justify-content: space-between;
