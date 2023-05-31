@@ -84,13 +84,14 @@ function PokemonBattles(){
             </div>
           </div>              
         </div>
+          <div className='start-game'>
+          <button className='button-start' 
+          //onClick={startGame}
+          >Start game</button>
+        </div> 
       </div>
 
-      <div className='start-game'>
-        <button className='button-start' 
-        //onClick={startGame}
-        >Start game</button>
-      </div> 
+      
     </>
   );
 }
