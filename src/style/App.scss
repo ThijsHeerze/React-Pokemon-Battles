@@ -34,7 +34,7 @@ $primary-color: red;
     text-decoration: none;
     transition: background-color 0.3s ease;
     margin: 4px 4px 4px 4px;
-    @include center;
+    @include center();
 }
 
 .button:hover {
@@ -44,10 +44,12 @@ $primary-color: red;
 .container {
     @include center;
     margin: 5%;
-
-    
+    .start-game {
+    display: flex;
+        .button-start {
+            display: flex;
+        }
+    }
 }
 
-.start-game{
-    @include center;
-}
+

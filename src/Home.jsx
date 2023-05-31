@@ -2,6 +2,7 @@ import { Header } from "./includes/Header.jsx";
 import "./style/Home.css";
 import homepageimage from './images/pokemonfoto3.jpg';
 import uitlegimage from './images/pokemonfoto1.jpg';
+import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
@@ -26,15 +27,21 @@ const Home = () => {
           <p>Ben je nog niet bekend met Pokémon en wil je graag weten welke er allemaal zijn? Ga dan naar de 'Pokémons' pagina om ze allemaal te bekijken! Je kan hier ook zoeken naar specifieke Pokémon. Heb je je al voldoende ingelezen? Dan is het tijd om het spel te beginnen! Ga naar de 'Battle' pagina om te starten!</p>
         </div>
         <div className="midden_buttons">
-          <button>Pokémons</button>
-          <button>Probeer het spel!</button>
+          <Link to="../pokemons">
+            <button>Pokémons</button>
+          </Link>
+          <Link to="../battle">
+            <button>Probeer het spel!</button>
+          </Link>
         </div>
       </div>
       <div className="onder">
         <div className="onder_links">
           <h2>Hoe werkt het spel?</h2>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis cum id quis! Dolorem facere dolorum ad expedita voluptates, aspernatur iste ab inventore doloribus recusandae, perferendis quasi, amet explicabo aliquid dolores.</p>
-          <button>Kijk deze video!</button>
+          <p>Wanneer je op de 'Battle' pagina komt krijgen beide spelers de optie om een gebruikersnaam en maximaal 5 Pokémon te kiezen. Zodra het spel start, krijgen de spelers om de beurt een kans op een attack te doen op de Pokémon van de tegenstander. Daarna is de andere speler aan de beurt. Wie het eerst de 5 Pokémon van de ander verslaat, wint het spel. Als je behoefte hebt aan een visuele demonstratie, neem dan een kijkje naar de video hieronder.</p>
+          <Link to="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley">
+            <button>Kijk deze video!</button>
+          </Link>
         </div>
         <div className="onder_rechts">
           {/* Uitleg spel + button */}

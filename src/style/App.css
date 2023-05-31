@@ -39,9 +39,9 @@
   justify-content: space-between;
   margin: 5%;
 }
-
-.start-game {
+.container .start-game {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+}
+.container .start-game .button-start {
+  display: flex;
 }/*# sourceMappingURL=App.css.map */
