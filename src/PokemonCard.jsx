@@ -3,7 +3,7 @@ import './style/Pokemon.css';
 
 const capitalizeName = (name) => name[0].toUpperCase() + name.slice(1, name.length);
 
-const PokemonCard = ({ url, selectable = false }) => {
+const PokemonCard = ({ url, onClick, selectable = false }) => {
   const [pokemon, setPokemon] = useState(null);
 
   useEffect(() => {
@@ -23,12 +23,11 @@ const PokemonCard = ({ url, selectable = false }) => {
     } else {
       elem.classList.add('selected');
     }
-
   };
   
   return (
     <>
-      {pokemon && <div id={pokemon.name} onClick={select} className="pokemon-card">
+      {pokemon && <div id={pokemon.name} onClick={onClick} className="pokemon-card">
         <p className="name">
           <b>{capitalizeName(pokemon.name) + ` (#${pokemon.id})`}</b>
         </p>

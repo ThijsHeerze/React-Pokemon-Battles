@@ -4,32 +4,21 @@ import { Header } from "./includes/Header.jsx";
 import './Pokemon.ts';
 import './style/App.css';
 
+const capitalizeName = (name) => name[0].toUpperCase() + name.slice(1, name.length);
+
 function PokemonBattles(){
-  // var [pokemon, setPokemons] = useState([]);
-  // var [pokemon, getPokemons] = useState([]);
-  // var [pokemons, selectPokemons] = useState([]);
-  // var [player, setPlayer] = useState([]);
-  // var [loading, setLoading] = useState(true);
+  const MINIMAL_POKEMON_COUNT = 1;
+  const location = useLocation();
+  let pokemonsP1;
+  let pokemonsP2;
 
-  // useEffect(() => {
-  //   fetch ("https://pokeapi.co/api/v2/pokemon?limit=100")
-  //     .then((response) => response.json())
-  //     .then((pokemon, player) => {
-  //       // setPokemons(pokemon);
-  //       setPlayer(player);
-  //       setLoading(false);
-  //     });
-  // }, []);
-
-  // if (loading) {
-  //   return (
-  //     <div className="pokemon">
-  //       Loading...
-  //     </div>
-  //   )
-  // }
-
-  const { pokemonsP1, pokemonsP2 } = useLocation().state || { pokemonsP1: [], pokemonsP2: [] };
+  if(location.state === null) {
+    pokemonsP1 = [];
+    pokemonsP2 = [];
+  } else {
+    pokemonsP1 = location.state.pokemonsP1;
+    pokemonsP2 = location.state.pokemonsP2;
+  }
 
   return (
     <>
@@ -38,60 +27,75 @@ function PokemonBattles(){
         <h1 className='title-battle'>Pokemon Battles</h1>
       </div>
 
-      <div className='container'>
-        <div className='player-one'>
-          <h2>Player 1</h2>
-          <div className='choose-name'><h2>Choose name</h2></div>
-            <input type='text' placeholder='enter name'></input>
-          <div className='button-choose'>
-            <h3>Choose your pokemon</h3>
-            <Link to="/pokemons" state={{selectPokemons: true, player: 1, pokemonsP1, pokemonsP2}}>
-              <button className='choose-pokemon'>Choose pokemon</button>
-            </Link>
-            <div className='chosen-pokemon'>
-              <h3>Your chosen pokemons:</h3>
-              <ul>
-                {pokemonsP1 && pokemonsP1.map(pokemon => {
-                  return (
-                    <li>
-                      {pokemon.name}
-                    </li>)
-                })}
-              </ul>
+      <div className='wrapper'>
+        <div className='container'>
+          <div className='players'>
+            <div className='player-one'>
+              <h2>Player 1</h2>
+              <div className='choose-name'><h2>Choose name</h2></div>
+              <input type='text' placeholder='enter name'></input>
+
+              <div className='button-choose'>
+                <h3>Choose your pokemon</h3>
+                <Link to="/pokemons" state={{selectPokemons: true, player: 1, pokemonsP1: pokemonsP1, pokemonsP2: pokemonsP2}}>
+                  <button className='choose-pokemon'>Choose pokemon</button>
+                </Link>
+
+                <div className='chosen-pokemon'>
+                  <h3>Your chosen pokemons:</h3>
+                  <ul>
+                    {pokemonsP1 && pokemonsP1.map((pokemon) => {
+                      return (
+                        <li>
+                          <div>
+                            <b><p>{capitalizeName(pokemon.name)}</p></b>
+                            <img src={pokemon.sprites.front_default} alt="" srcset="" />
+                          </div>
+                        </li>
+                      )
+                    })}
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div className='player-two'>
+              <h2>Player 2</h2>
+              <div className='choose-name'><h2>Choose name</h2></div>
+              <input type='text' placeholder='enter name'></input>
+
+              <div className='choose-pokemon'>
+                <h3>Choose your pokemons</h3>
+                <Link to="/pokemons" state={{selectPokemons: true, player: 2, pokemonsP1: pokemonsP1, pokemonsP2: pokemonsP2}}>
+                  <button className='choose-pokemon'>Choose pokemon</button>
+                </Link>
+
+                <div className='chosen-pokemon'>
+                  <h3>Your chosen pokemons:</h3>
+                  <ul>
+                    {pokemonsP2 && pokemonsP2.map((pokemon) => {
+                      return (
+                        <li>
+                          <div>
+                            <b><p>{capitalizeName(pokemon.name)}</p></b>
+                            <img src={pokemon.sprites.front_default} alt="" srcset="" />
+                          </div>
+                        </li>
+                      )
+                    })}
+                    </ul>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className='player-two'>
-          <h2>Player 2</h2>
-          <div className='choose-name'><h2>Choose name</h2></div>
-            <input type='text' placeholder='enter name'></input>
-          <div className='choose-pokemon'>
-            <h3>Choose your pokemons</h3>
-            <Link to="/pokemons" state={{selectPokemons: true, player: 2, pokemonsP1, pokemonsP2}}>
-              <button className='choose-pokemon'>Choose pokemon</button>
-            </Link>
-            <div className='chosen-pokemon'>
-              <h3>Your chosen pokemons:</h3>
-              <ul>
-                {pokemonsP2 && pokemonsP2.map(pokemon => {
-                  return (
-                    <li>
-                      {pokemon.name}
-                    </li>)
-                })}
-              </ul>
-            </div>
-          </div>              
-        </div>
           <div className='start-game'>
-          <button className='button-start' 
-          //onClick={startGame}
-          >Start game</button>
-        </div> 
+            <button className='button-start' 
+            //onClick={startGame}
+            >Start game</button>
+          </div>
+        </div>
       </div>
-
-      
     </>
   );
 }

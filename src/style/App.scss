@@ -2,11 +2,6 @@
 
 $primary-color: red;
 
-@mixin center{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
 
 .pokemon {
     background-color: #f2f2f2;
@@ -23,6 +18,9 @@ $primary-color: red;
 }
 
 .button {
+    display: flex;
+    justify-content: center;
+    align-items: space-between;
     background-color: $primary-color;
     border: none;
     border-radius: 5px;
@@ -34,22 +32,54 @@ $primary-color: red;
     text-decoration: none;
     transition: background-color 0.3s ease;
     margin: 4px 4px 4px 4px;
-    @include center();
 }
 
 .button:hover {
   background-color: darken($primary-color, 10%);
 }
 
-.container {
-    @include center;
-    margin: 5%;
-    .start-game {
-    display: flex;
-        .button-start {
-            display: flex;
-        }
-    }
+.pokemon-battles {
+    padding-top: 20px;
 }
 
+.title-battle {
+    text-align: center;
+}
 
+.wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    max-width: max-content;
+    background-color: lightblue;
+}
+
+.players {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 50px;
+}
+
+.player-one {
+    padding: 30px;
+    margin-right: 20px;
+}
+
+.player-two {
+    padding: 30px;
+    margin-left: 20px;
+}
+
+.start-game {
+    position: relative;
+    top: -55px;
+}

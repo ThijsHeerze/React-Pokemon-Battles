@@ -13,6 +13,9 @@
 }
 
 .button {
+  display: flex;
+  justify-content: center;
+  align-items: space-between;
   background-color: red;
   border: none;
   border-radius: 5px;
@@ -24,24 +27,55 @@
   text-decoration: none;
   transition: background-color 0.3s ease;
   margin: 4px 4px 4px 4px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
 }
 
 .button:hover {
   background-color: #cc0000;
 }
 
+.pokemon-battles {
+  padding-top: 20px;
+}
+
+.title-battle {
+  text-align: center;
+}
+
+.wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .container {
   display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  justify-content: space-between;
-  margin: 5%;
+  flex-wrap: nowrap;
+  max-width: -moz-max-content;
+  max-width: max-content;
+  background-color: lightblue;
 }
-.container .start-game {
+
+.players {
   display: flex;
+  flex-direction: row;
+  margin-bottom: 50px;
 }
-.container .start-game .button-start {
-  display: flex;
+
+.player-one {
+  padding: 30px;
+  margin-right: 20px;
+}
+
+.player-two {
+  padding: 30px;
+  margin-left: 20px;
+}
+
+.start-game {
+  position: relative;
+  top: -55px;
 }/*# sourceMappingURL=App.css.map */

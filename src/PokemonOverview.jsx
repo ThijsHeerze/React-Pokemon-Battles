@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Navigate, useNavigate } from 'react-router-dom';
 import { Header } from "./includes/Header.jsx";
 import PokemonCard from './PokemonCard';
 import './style/App.css';
@@ -8,6 +8,7 @@ function PokemonOverview() {
   var [pokemons, setPokemons] = useState([]);
   var [loading, setLoading] = useState(true);
   var [searchInput, setSearchInput] = useState("");
+  const navigate = useNavigate();
   let { selectPokemons, player, pokemonsP1, pokemonsP2 } = useLocation().state || { selectPokemons: false, player: 0, pokemonsP1: [], pokemonsP2: [] };
 
   useEffect(() => {
@@ -19,25 +20,6 @@ function PokemonOverview() {
         .then((data) => {
           setPokemons(data);
           setLoading(false);
-
-          if(selectPokemons) {
-            document.documentElement.addEventListener("click", (e) => {
-              const selectedPokemons = []
-              document.querySelectorAll('.pokemon-card.selected').forEach((pokemon) => {
-                selectedPokemons.push(pokemon.id);
-              });
-
-              if(player === 1) {
-                pokemonsP1 = selectedPokemons;
-                console.log("Pokemons P1");
-                console.log(pokemonsP1);
-              } else if(player === 2) {
-                pokemonsP2 = selectedPokemons;
-                console.log("Pokemons P2");
-                console.log(pokemonsP2);
-              }
-            });
-          }
         });
     }
   }, []);
@@ -105,6 +87,30 @@ function PokemonOverview() {
     console.log("searchInput:", searchInput);
   };
 
+  const handleSelectPokemon = (e) => {
+    if(!selectPokemons) {
+      return;
+    }
+    
+    console.log(e.currentTarget);
+    
+    if(player === 1) {
+      fetch(`https://pokeapi.co/api/v2/pokemon/${e.currentTarget.id}`)
+        .then((response) => response.json())
+        .then((data) => {
+          pokemonsP1 = [data]
+          navigate("/battle", { state:{ pokemonsP1, pokemonsP2 } });
+        });
+    } else if(player === 2) {
+      fetch(`https://pokeapi.co/api/v2/pokemon/${e.currentTarget.id}`)
+        .then((response) => response.json())
+        .then((data) => {
+          pokemonsP2 = [data]
+          navigate("/battle", { state:{ pokemonsP1, pokemonsP2} });
+        });
+    }
+  };
+
   return (
     <>
     <Header/>
@@ -129,7 +135,7 @@ function PokemonOverview() {
         <div className='pokemon-list'>
           {pokemons.results.map(pokemon => {
             return (
-              <PokemonCard url={pokemon.url} selectable={selectPokemons} />
+              <PokemonCard onClick={handleSelectPokemon} url={pokemon.url} selectable={selectPokemons} />
             )
           })}
           {/* <Pokemons/> */}
