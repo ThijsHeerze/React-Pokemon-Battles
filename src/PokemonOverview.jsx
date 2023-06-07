@@ -91,22 +91,22 @@ function PokemonOverview() {
     if(!selectPokemons) {
       return;
     }
-    
-    console.log(e.currentTarget);
+
+    e.currentTarget.classList.add("selected");
     
     if(player === 1) {
       fetch(`https://pokeapi.co/api/v2/pokemon/${e.currentTarget.id}`)
         .then((response) => response.json())
         .then((data) => {
           pokemonsP1 = [data]
-          navigate("/battle", { state:{ pokemonsP1, pokemonsP2 } });
+          navigate("/prepare", { state:{ pokemonsP1, pokemonsP2 } });
         });
     } else if(player === 2) {
       fetch(`https://pokeapi.co/api/v2/pokemon/${e.currentTarget.id}`)
         .then((response) => response.json())
         .then((data) => {
           pokemonsP2 = [data]
-          navigate("/battle", { state:{ pokemonsP1, pokemonsP2} });
+          navigate("/prepare", { state:{ pokemonsP1, pokemonsP2} });
         });
     }
   };

@@ -1,12 +1,11 @@
-import { useEffect, useState } from 'react';
+import React from 'react';
 import { Link, useLocation } from "react-router-dom";
 import { Header } from "./includes/Header.jsx";
-import './Pokemon.ts';
 import './style/App.css';
 
 const capitalizeName = (name) => name[0].toUpperCase() + name.slice(1, name.length);
 
-function PokemonBattles(){
+function PokemonPrepare() {
   const MINIMAL_POKEMON_COUNT = 1;
   const location = useLocation();
   let pokemonsP1;
@@ -23,12 +22,14 @@ function PokemonBattles(){
   return (
     <>
       <Header />
-      <div className='pokemon-battles'>
-        <h1 className='title-battle'>Pokemon Battles</h1>
-      </div>
+      <div className="battle-img">
+        <div className='pokemon-battles'>
+          <h1 className='title-battle'>Pokemon Battles</h1> 
+        </div>
 
       <div className='wrapper'>
         <div className='container'>
+          
           <div className='players'>
             <div className='player-one'>
               <h2>Player 1</h2>
@@ -85,14 +86,14 @@ function PokemonBattles(){
                     })}
                     </ul>
                 </div>
+                </div>
               </div>
             </div>
-          </div>
-
-          <div className='start-game'>
-            <button className='button-start' 
-            //onClick={startGame}
-            >Start game</button>
+            <div className='start-game'>
+              <button className='button-start' 
+              //onClick={startGame}
+              >Start game</button>
+            </div>
           </div>
         </div>
       </div>
@@ -100,4 +101,4 @@ function PokemonBattles(){
   );
 }
 
-export default PokemonBattles;
+export default PokemonPrepare;

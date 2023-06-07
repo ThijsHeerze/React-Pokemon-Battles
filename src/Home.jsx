@@ -1,5 +1,5 @@
 import { Header } from "./includes/Header.jsx";
-import "./style/Home.css";
+import styles from "./style/App.css";
 import homepageimage from './images/pokemonfoto3.jpg';
 import uitlegimage from './images/pokemonfoto1.jpg';
 import { Link } from "react-router-dom";
@@ -8,7 +8,7 @@ const Home = () => {
   return (
     <>
     <Header />
-    <div className="pagina">
+    <div className={styles.pagina}>
       <div className="boven">
         <div className="boven_links">
         <img src={homepageimage} alt="" />

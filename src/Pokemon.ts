@@ -20,7 +20,6 @@ class Pokemon {
   static async create(url: string) {
     const response = await fetch(url);
     const data = await response.json();
-    // const url = data.url;
     const name = capitalizeName(data.name);
     const types = data.types.map(async (type) => await Type.create(type.type.url));
     const baseExperience = data.base_experience;
