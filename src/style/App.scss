@@ -1,6 +1,7 @@
 //css for PokemonOverview and PokemonBattles
 
 $primary-color: red;
+$secundary-color: rgb(0, 0, 255);
 
 .navbar a {
     text-decoration: none;
@@ -24,6 +25,12 @@ $primary-color: red;
 
 .navlinks {
     margin-left: 30px;
+}
+
+.logo img {
+    max-height: 30px;
+    margin-top: 4px;
+    margin-left: 25px
 }
 
 .navrechts {
@@ -118,24 +125,6 @@ code {
     width: 40%;
 }
 
-button {
-    background-color: red;
-    border: none;
-    border-radius: 5px;
-    color: white;
-    cursor: pointer;
-    font-size: 16px;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
-    margin: 4px 4px 4px 4px;
-}
-
-button:hover {
-    background-color: #cc0000;
-}/*# sourceMappingURL=App.css.map */
-
 .onder {
     display: flex;
     flex-direction: row;
@@ -196,9 +185,6 @@ button:hover {
 }
 
 .button {
-    display: flex;
-    justify-content: center;
-    align-items: space-between;
     background-color: $primary-color;
     border: none;
     border-radius: 5px;
@@ -211,10 +197,47 @@ button:hover {
     transition: background-color 0.3s ease;
     margin: 4px 4px 4px 4px;
 }
-
 .button:hover {
   background-color: darken($primary-color, 10%);
 }
+.buttons {
+    width: 100%;
+    height: 50%;
+    background-color: yellow;
+    .button-attack{
+        background-color: $primary-color;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        cursor: pointer;
+        font-size: 16px;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+        margin: 4px 4px 4px 4px;
+    }
+    .button-attack:active {
+        background-color: darken($primary-color, 10%);
+    }
+    .button-attackp2{
+        background-color: $secundary-color;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        cursor: pointer;
+        font-size: 16px;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+        margin: 4px 4px 4px 4px;
+    }
+    .button-attackp2:active {
+        background-color: darken($secundary-color, 10%);
+    }
+  }
+
 
 .pokemon-battles {
     padding-top: 20px;
@@ -267,40 +290,50 @@ button:hover {
     flex-direction: row;
     width: 100%;
     height: calc(100vh - 48px);
-  }
-  
-  .pagina * {
+}
+
+.pagina * {
     margin: 0;
     padding: 0;
-  }
-  
-  .left {
+}
+
+.left {
     width: 50%;
     background-color: beige;
-  }
-  
-  .game {
+}
+
+.game {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     height: 50%;
     background-color: cornflowerblue;
-  }
+}
+
+.game .p1 {
+
+}
+
+.buttonplayer-one{
+    width: 135px;
+    background-color: #fff;
+}
+.button-player-two{
+width: 135px;
+    background-color: #fff;
+}
   
-  .buttons {
-    width: 100%;
-    height: 50%;
-    background-color: yellow;
-  }
-  
-  .button-player-one{
-      width: 135px;
-      background-color: #fff;
-  }
-  .button-player-two{
-  
-  }
-  
-  .right {
+.right {
     width: 50%;
     height: 100%;
     background-color: plum;
-  }
+}
+
+.right{
+    .attack-info{
+        border: 1px solid gray;
+        border-radius: 8px;
+        margin: 5px;
+    }
+}

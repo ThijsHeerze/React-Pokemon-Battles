@@ -12,12 +12,17 @@ function PokemonPrepare() {
   let pokemonsP2;
 
   if(location.state === null) {
+    console.log("location is null");
     pokemonsP1 = [];
     pokemonsP2 = [];
   } else {
     pokemonsP1 = location.state.pokemonsP1;
     pokemonsP2 = location.state.pokemonsP2;
   }
+
+  console.log("prepare");
+  console.log(pokemonsP1);
+  console.log(pokemonsP2);
 
   return (
     <>
@@ -36,10 +41,10 @@ function PokemonPrepare() {
               <div className='choose-name'><h2>Choose name</h2></div>
               <input type='text' placeholder='enter name'></input>
 
-              <div className='button-choose'>
+              <div className='choose-pokemon'>
                 <h3>Choose your pokemon</h3>
                 <Link to="/pokemons" state={{selectPokemons: true, player: 1, pokemonsP1: pokemonsP1, pokemonsP2: pokemonsP2}}>
-                  <button className='choose-pokemon'>Choose pokemon</button>
+                  <button className='button'>Choose pokemon</button>
                 </Link>
 
                 <div className='chosen-pokemon'>
@@ -68,7 +73,7 @@ function PokemonPrepare() {
               <div className='choose-pokemon'>
                 <h3>Choose your pokemons</h3>
                 <Link to="/pokemons" state={{selectPokemons: true, player: 2, pokemonsP1: pokemonsP1, pokemonsP2: pokemonsP2}}>
-                  <button className='choose-pokemon'>Choose pokemon</button>
+                  <button className='button'>Choose pokemon</button>
                 </Link>
 
                 <div className='chosen-pokemon'>
@@ -90,9 +95,11 @@ function PokemonPrepare() {
               </div>
             </div>
             <div className='start-game'>
-              <button className='button-start' 
-              //onClick={startGame}
-              >Start game</button>
+              <Link to="/battle" state={{pokemonsP1, pokemonsP2}}>
+                <button className='button button-start' 
+                //onClick={startGame}
+                >Start game</button>
+              </Link>
             </div>
           </div>
         </div>

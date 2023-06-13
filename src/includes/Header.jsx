@@ -1,5 +1,6 @@
 import "../style/App.css";
 import { Link } from "react-router-dom";
+import headerimage from '../images/pokemon-logo.png';
 
 const Header = () => {
   return (
@@ -7,7 +8,7 @@ const Header = () => {
 
       <div className="navlinks">
         <div className="logo">
-        <Link to="/">Logo</Link>
+          <Link to="/"><img src={headerimage} alt="" /></Link>
         </div>
       </div>
 

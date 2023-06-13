@@ -22,6 +22,12 @@
   margin-left: 30px;
 }
 
+.logo img {
+  max-height: 30px;
+  margin-top: 4px;
+  margin-left: 25px;
+}
+
 .navrechts {
   display: flex;
   justify-content: space-around;
@@ -107,23 +113,6 @@ code {
   width: 40%;
 }
 
-button {
-  background-color: red;
-  border: none;
-  border-radius: 5px;
-  color: white;
-  cursor: pointer;
-  font-size: 16px;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  transition: background-color 0.3s ease;
-  margin: 4px 4px 4px 4px;
-}
-
-button:hover {
-  background-color: #cc0000;
-} 
 .onder {
   display: flex;
   flex-direction: row;
@@ -184,9 +173,6 @@ button:hover {
 }
 
 .button {
-  display: flex;
-  justify-content: center;
-  align-items: space-between;
   background-color: red;
   border: none;
   border-radius: 5px;
@@ -202,6 +188,44 @@ button:hover {
 
 .button:hover {
   background-color: #cc0000;
+}
+
+.buttons {
+  width: 100%;
+  height: 50%;
+  background-color: yellow;
+}
+.buttons .button-attack {
+  background-color: red;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  margin: 4px 4px 4px 4px;
+}
+.buttons .button-attack:active {
+  background-color: #cc0000;
+}
+.buttons .button-attackp2 {
+  background-color: rgb(0, 0, 255);
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  margin: 4px 4px 4px 4px;
+}
+.buttons .button-attackp2:active {
+  background-color: #0000cc;
 }
 
 .pokemon-battles {
@@ -269,18 +293,20 @@ button:hover {
 }
 
 .game {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   height: 50%;
   background-color: cornflowerblue;
 }
 
-.buttons {
-  width: 100%;
-  height: 50%;
-  background-color: yellow;
+.buttonplayer-one {
+  width: 135px;
+  background-color: #fff;
 }
 
-.button-player-one {
+.button-player-two {
   width: 135px;
   background-color: #fff;
 }
@@ -289,4 +315,10 @@ button:hover {
   width: 50%;
   height: 100%;
   background-color: plum;
+}
+
+.right .attack-info {
+  border: 1px solid gray;
+  border-radius: 8px;
+  margin: 5px;
 }/*# sourceMappingURL=App.css.map */

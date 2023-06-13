@@ -28,10 +28,10 @@ const Home = () => {
         </div>
         <div className="midden_buttons">
           <Link to="../pokemons">
-            <button>Pokémons</button>
+            <button className="button">Pokémons</button>
           </Link>
           <Link to="../battle">
-            <button>Probeer het spel!</button>
+            <button className="button">Probeer het spel!</button>
           </Link>
         </div>
       </div>
@@ -39,8 +39,8 @@ const Home = () => {
         <div className="onder_links">
           <h2>Hoe werkt het spel?</h2>
           <p>Wanneer je op de 'Battle' pagina komt krijgen beide spelers de optie om een gebruikersnaam en maximaal 5 Pokémon te kiezen. Zodra het spel start, krijgen de spelers om de beurt een kans op een attack te doen op de Pokémon van de tegenstander. Daarna is de andere speler aan de beurt. Wie het eerst de 5 Pokémon van de ander verslaat, wint het spel. Als je behoefte hebt aan een visuele demonstratie, neem dan een kijkje naar de video hieronder.</p>
-          <Link to="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley">
-            <button>Kijk deze video!</button>
+          <Link to="https://www.youtube.com/watch?v=FDqDvvJyY2w&ab_channel=TheOfficialPok%C3%A9monYouTubechannel">
+            <button className="button">Kijk deze video!</button>
           </Link>
         </div>
         <div className="onder_rechts">

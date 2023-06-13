@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './style/Pokemon.css';
+import './style/App.css';
 
 const capitalizeName = (name) => name[0].toUpperCase() + name.slice(1, name.length);
 
