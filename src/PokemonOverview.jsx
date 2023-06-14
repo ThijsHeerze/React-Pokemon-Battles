@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useLocation, Navigate, useNavigate } from 'react-router-dom';
 import { Header } from "./includes/Header.jsx";
 import PokemonCard from './PokemonCard';
+import Pokemon from './Pokemon.ts';
 import './style/App.css';
 
 function PokemonOverview() {
@@ -9,7 +10,7 @@ function PokemonOverview() {
   var [loading, setLoading] = useState(true);
   var [searchInput, setSearchInput] = useState("");
   const navigate = useNavigate();
-  let { selectPokemons, player, pokemonsP1, pokemonsP2 } = useLocation().state || { selectPokemons: false, player: 0, pokemonsP1: [], pokemonsP2: [] };
+  let { selectPokemons, player, pokemonP1Url, pokemonP2Url } = useLocation().state || { selectPokemons: false, player: 0, pokemonP1Url: "", pokemonP2Url: "" };
 
   useEffect(() => {
     console.log("reloading...");
@@ -95,19 +96,11 @@ function PokemonOverview() {
     e.currentTarget.classList.add("selected");
     
     if(player === 1) {
-      fetch(`https://pokeapi.co/api/v2/pokemon/${e.currentTarget.id}`)
-        .then((response) => response.json())
-        .then((data) => {
-          pokemonsP1 = [data]
-          navigate("/prepare", { state:{ pokemonsP1, pokemonsP2 } });
-        });
+      pokemonP1Url = `https://pokeapi.co/api/v2/pokemon/${e.currentTarget.id}`;
+      navigate("/prepare", { state: { pokemonP1Url, pokemonP2Url } });
     } else if(player === 2) {
-      fetch(`https://pokeapi.co/api/v2/pokemon/${e.currentTarget.id}`)
-        .then((response) => response.json())
-        .then((data) => {
-          pokemonsP2 = [data]
-          navigate("/prepare", { state:{ pokemonsP1, pokemonsP2} });
-        });
+      pokemonP2Url = `https://pokeapi.co/api/v2/pokemon/${e.currentTarget.id}`;
+      navigate("/prepare", { state: { pokemonP1Url, pokemonP2Url } });
     }
   };
 

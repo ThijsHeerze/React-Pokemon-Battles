@@ -291,32 +291,37 @@ code {
   width: 50%;
   background-color: beige;
 }
-
-.game {
+.left .game {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
   height: 50%;
   background-color: cornflowerblue;
+  background-image: url("../images/pokemonbattle.jpg");
+  background-size: cover;
 }
-
-.buttonplayer-one {
-  width: 135px;
-  background-color: #fff;
+.left .game .p1 .player1 {
+  display: flex;
+  padding-top: 125px;
+  padding-right: 100px;
 }
-
-.button-player-two {
-  width: 135px;
-  background-color: #fff;
+.left .game .p1 .player2 {
+  display: flex;
+  padding-bottom: 125px;
+  padding-left: 100px;
 }
 
 .right {
   width: 50%;
   height: 100%;
-  background-color: plum;
 }
-
+.right .info {
+  border: 1px solid gray;
+  border-radius: 8px;
+  margin: 5px;
+  margin-bottom: 10px;
+}
 .right .attack-info {
   border: 1px solid gray;
   border-radius: 8px;
