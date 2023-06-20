@@ -1,5 +1,3 @@
-//css for PokemonOverview and PokemonBattles
-
 $primary-color: red;
 $secundary-color: rgb(0, 0, 255);
 
@@ -202,9 +200,10 @@ code {
 }
 .buttons {
     width: 100%;
-    height: 50%;
-    background-color: yellow;
-    .button-attack{
+    height: 30%;
+    //background-color: yellow;
+    .button-attackp1{
+        width: 20%;
         background-color: $primary-color;
         border: none;
         border-radius: 5px;
@@ -217,10 +216,15 @@ code {
         transition: background-color 0.3s ease;
         margin: 4px 4px 4px 4px;
     }
-    .button-attack:active {
+    .button-attackp1:active {
         background-color: darken($primary-color, 10%);
     }
+    .button-attackp1:disabled {
+        background-color: darken($primary-color, 30%);
+        cursor: default;
+    }
     .button-attackp2{
+        width: 20%;
         background-color: $secundary-color;
         border: none;
         border-radius: 5px;
@@ -235,6 +239,10 @@ code {
     }
     .button-attackp2:active {
         background-color: darken($secundary-color, 10%);
+    }
+    .button-attackp2:disabled {
+        background-color: darken($secundary-color, 30%);
+        cursor: default;
     }
   }
 
@@ -298,45 +306,58 @@ code {
 }
 
 .left{
-    width: 50%;
-    background-color: beige;
+    width: 70%;
+    //background-color: beige;
     .game{
         display: flex;
         justify-content: center;
         align-items: center;
         width: 100%;
-        height: 50%;
+        height: 70%;
         background-color: cornflowerblue;
         background-image: url("../images/pokemonbattle.jpg");
         background-size: cover;
+        font-weight: 600;
+        font-size: x-large;
+        color: black;
+        -webkit-text-fill-color: white; /* Will override color (regardless of order) */
+        -webkit-text-stroke-width: 1px;
+        -webkit-text-stroke-color: black;
         .p1 {
+            padding-top: 250px;
+            padding-right: 250px;
             .player1{
                 display: flex;
-                padding-top: 125px;
-                padding-right: 100px;
+                width: 150px;   
             }
-            .player2{
-                display: flex;
-                padding-bottom: 125px;
-                padding-left: 100px;
+            .player1.dead {
+                transform: rotate(-90deg);
             }
         }
-        
+        .p2{
+            padding-bottom: 50px;
+            padding-left: 100px;
+            .player2{
+                display: flex;
+                width: 150px;             
+            }
+            .player2.dead {
+                transform: rotate(90deg);
+            }
+        }    
     }
 }
 
 .right{
-    width: 50%;
+    width: 30%;
     height: 100%;
     .info{
-        border: 1px solid gray;
-        border-radius: 8px;
-        margin: 5px;
-        margin-bottom: 10px;
+        border-bottom: 25px solid rgba(128, 128, 128, 0.477);
+        padding: 10px;
     }
     .attack-info{
-        border: 1px solid gray;
-        border-radius: 8px;
-        margin: 5px;
+        border-bottom: 25px solid rgba(128, 128, 128, 0.477);
+        padding: 10px;
     }
 }
+

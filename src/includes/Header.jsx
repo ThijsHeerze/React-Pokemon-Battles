@@ -17,6 +17,7 @@ const Header = () => {
         <Link to="/pokemons">Pokemons</Link>
         <Link to="/prepare">Prepare</Link>
         <Link to="/battle"></Link>
+        <Link to="/credits">Credits</Link>
       </div>
     </div>
   );

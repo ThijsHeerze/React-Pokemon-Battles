@@ -100,13 +100,13 @@ class Move {
     const response = await fetch(url);
     const data = await response.json();
     // const url = url;
-    const name = data.name;
+    const name = capitalizeName(data.name.replaceAll("-", " "));
     const descriptionLong = data.effect_entries[0].effect;
     const descriptionShort = data.effect_entries[0].shortEffect;
     const category = data.meta.category.name;  // Moet nog een class van gemaakt worden
     const type = await Type.create(data.type.url);
     const accuracy = data.accuracy;
-    const power = data.power;
+    const power = data.power ? data.power : 0;
     const pp = data.pp;
     const priority = data.priority
     const critRate = data.meta.crit_rate;

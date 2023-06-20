@@ -4,6 +4,7 @@ import Home from './Home';
 import PokemonOverview from './PokemonOverview';
 import PokemonPrepare from './PokemonPrepare';
 import Battle from './Battle';
+import Credits from './Credits';
 import Testing from './Testing';
 import './style/App.css';
 
@@ -15,6 +16,7 @@ function App() {
         <Route path="/pokemons" element={<PokemonOverview />} />
         <Route path="/prepare" element={<PokemonPrepare />} />
         <Route path="/battle" element={<Battle />} />
+        <Route path="/credits" element={<Credits />} />
         <Route path="/testing" element={<Testing />} />
       </Routes>
     </>

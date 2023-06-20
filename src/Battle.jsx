@@ -5,11 +5,13 @@ import Pokemon from './Pokemon.ts';
 import './style/App.css';
 
 const Battle = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
+  const [loadedPokemon, setLoadedPokemon] = useState(false);
   const [pokemonP1, setPokemonP1] = useState(null);
   const [pokemonP2, setPokemonP2] = useState(null);
-  const [loadedPokemons, setLoadedPokemon] = useState(false);
+  const [pokemonP1Hp, setPokemonP1Hp] = useState(0);
+  const [pokemonP2Hp, setPokemonP2Hp] = useState(0);
+  const location = useLocation();
+  const navigate = useNavigate();
   let pokemonP1Url = "";
   let pokemonP2Url = "";
 
@@ -22,6 +24,7 @@ const Battle = () => {
     const fetchPokemon = async () => {
       if(location.state === null) {
         console.log("location is null");
+        navigate("/prepare");
         setLoadedPokemon(true);
         
         return { pokemon1: null, pokemon2: null };
@@ -30,18 +33,15 @@ const Battle = () => {
         let pokemon2 = null;
         
         try {
-          // const response1 = await fetch(pokemonP1Url);
-          // pokemon1 = await response1.json();
-
           pokemon1 = await Pokemon.create(pokemonP1Url);
+          setPokemonP1Hp(pokemon1.hp);
         } catch(e) {
           console.error(e);
         }
 
         try {
-          // const response2 = await fetch(pokemonP2Url);
-          // pokemon2 = await response2.json();
           pokemon2 = await Pokemon.create(pokemonP2Url);
+          setPokemonP2Hp(pokemon2.hp);
         } catch(e) {
           console.error(e);
         }
@@ -65,47 +65,50 @@ const Battle = () => {
         console.log("done");
       });
     
-    
-    
-    
-    
-    if(!location.state) {
-      // navigate("/prepare");
-    }
-    
-    if(loadedPokemons) {
-      Pokemon.create(pokemonP1Url).then((pokemon) => setPokemonP1(pokemon));
-      Pokemon.create(pokemonP2Url).then((pokemon) => setPokemonP2(pokemon));
-    }
-
-    // setPokemonP1(location.state.pokemonsP1);
-    // setPokemonP2(location.state.pokemonsP2);
-
-    console.log("Pokemon");
+    console.log("Battle");
     console.log(pokemonP1);
     console.log(pokemonP2);
-
-    // setPokemonP1(async () => await Pokemon.create(pokemonP1))
-    // setPokemonsP1(location.state.pokemonsP1.map(async (pokemonData) => await Pokemon.create(pokemonData.url)));
-    // setPokemonsP2(location.state.pokemonsP2.map(async (pokemonData) => await Pokemon.create(pokemonData.url)));
-
-
-    // console.log(pokemonsP1);
-    // console.log(pokemonsP2);
   }, []);
 
-  // if(!pokemonP1 && !pokemonP2) {
-  //   return (
-  //     <p>loading...</p>
-  //   )
-  // } 
-  // else {
-  //   loadedPokemons = true;
-  // }
+  if(!loadedPokemon) {
+    return ("Loading pokemon...");
+  }
 
   console.log("Pokemonsss");
   console.log(pokemonP1);
   console.log(pokemonP2);
+
+  const attackPokemon = (playerNumber, attacker, victim, move) => {
+    // Attack pokemon and update HP
+    attacker.attackPokemon(move, victim);
+    setPokemonP1Hp(pokemonP1.hp);
+    setPokemonP2Hp(pokemonP2.hp);
+
+    // Disable buttons
+    const attackerButtons = document.querySelectorAll(`.button-attackp${playerNumber}`);
+    const victimButtons = document.querySelectorAll(`.button-attackp${playerNumber === 1 ? 2 : 1}`);
+    attackerButtons.forEach((button) => button.setAttribute("disabled", ""));
+    victimButtons.forEach((button) => button.removeAttribute("disabled"));
+    
+    // Create turn info text
+    const infoPanel = document.querySelector(".right");
+    const divElem = document.createElement("div");
+    const infoElem = document.createElement("p");
+
+    divElem.classList.add("attack-info");
+    infoElem.innerText = `${attacker.name} used ${move.name}, taking away ${move.power} hp from ${victim.name}!`;
+
+    if(victim.hp === 0) {
+      infoElem.innerText += `\n${victim.name} fainted!`
+      victimButtons.forEach((button) => button.setAttribute("disabled", ""));
+
+      const victimImage = document.querySelector(`img.player${playerNumber === 1 ? 2 : 1}`);
+      victimImage.classList.add("dead");
+    }
+
+    divElem.appendChild(infoElem);
+    infoPanel.appendChild(divElem);
+  }
   
   return (
     <>
@@ -113,59 +116,96 @@ const Battle = () => {
       <div className="pagina">
         <div className='left'>
           <div className='game'>
-            <p>game</p>
+            {/* <p>game</p> */}
             <div className="p1">
-              <p>Player 1</p>
-              {/* <img className='player1' src={pokemonP1.sprites.back_default} alt="Back default pokemon player 1" /> */}
-              <img className='player1' src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/1.png" alt="Back default pokemon player 1" />
+              <p className='name'>{pokemonP1.name}</p>
+              <p className='hp'>HP: {pokemonP1Hp}/{pokemonP1.maxHp}</p>
+              <img className='player1' src={pokemonP1.sprites.back_default} alt="Back default pokemon player 1" />
+              {/* <img className='player1' src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/1.png" alt="Back default pokemon player 1" /> */}
             </div>
 
             <div className="p2">
-              <p>Player 2</p>
-              {/* <img className='player2' src={pokemonP2.sprites.front_default} alt="Front default pokemon player 2" /> */}
-              <img className='player2' src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png" alt="Front default pokemon player 2" />
+              <p className='name'>{pokemonP2.name}</p>
+              <p className='hp'>HP: {pokemonP2Hp}/{pokemonP2.maxHp}</p>
+              <img className='player2' src={pokemonP2.sprites.front_default} alt="Front default pokemon player 2" />
+              {/* <img className='player2' src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png" alt="Front default pokemon player 2" /> */}
             </div>
           </div>
 
           <div className="buttons">
-            <p>Player 1</p>
+            <p>{pokemonP1.name}</p>
             <div className='attack'>
-                <button className='button-attack' >ATTACK MOVE 1</button>
-                <button className='button-attack' >ATTACK MOVE 2</button>
-                <button className='button-attack' >ATTACK MOVE 3</button>
-                <button className='button-attack' >ATTACK MOVE 4</button>
+              <button className='button-attackp1' onClick={() => attackPokemon(1, pokemonP1, pokemonP2, pokemonP1.moves[0])} >
+                <b>{pokemonP1.moves[0].name}</b>
+                <br />
+                <small>Power: {pokemonP1.moves[0].power}</small>
+                <br />
+                <small>PP: {pokemonP1.moves[0].pp}</small>
+              </button>
+              <button className='button-attackp1' onClick={() => attackPokemon(1, pokemonP1, pokemonP2, pokemonP1.moves[1])} >
+                <b>{pokemonP1.moves[1].name}</b>
+                <br />
+                <small>Power: {pokemonP1.moves[1].power}</small>
+                <br />
+                <small>PP: {pokemonP1.moves[1].pp}</small>
+              </button>
+              <button className='button-attackp1' onClick={() => attackPokemon(1, pokemonP1, pokemonP2, pokemonP1.moves[2])} >
+                <b>{pokemonP1.moves[2].name}</b>
+                <br />
+                <small>Power: {pokemonP1.moves[2].power}</small>
+                <br />
+                <small>PP: {pokemonP1.moves[2].pp}</small>
+              </button>
+              <button className='button-attackp1' onClick={() => attackPokemon(1, pokemonP1, pokemonP2, pokemonP1.moves[3])} >
+                <b>{pokemonP1.moves[3].name}</b>
+                <br />
+                <small>Power: {pokemonP1.moves[3].power}</small>
+                <br />
+                <small>PP: {pokemonP1.moves[3].pp}</small>
+              </button>
             </div>
 
-            <p>Player 2</p>
+            <p>{pokemonP2.name}</p>
             <div className='attack'>
-                <button className='button-attackp2' >ATTACK MOVE 1</button>
-                <button className='button-attackp2' >ATTACK MOVE 2</button>
-                <button className='button-attackp2' >ATTACK MOVE 3</button>
-                <button className='button-attackp2' >ATTACK MOVE 4</button>
+                <button className='button-attackp2' onClick={() => attackPokemon(2, pokemonP2, pokemonP1, pokemonP2.moves[0])} >
+                <b>{pokemonP2.moves[0].name}</b>
+                <br />
+                <small>Power: {pokemonP2.moves[0].power}</small>
+                <br />
+                <small>PP: {pokemonP2.moves[0].pp}</small>
+              </button>
+              <button className='button-attackp2' onClick={() => attackPokemon(2, pokemonP2, pokemonP1, pokemonP2.moves[1])} >
+                <b>{pokemonP2.moves[1].name}</b>
+                <br />
+                <small>Power: {pokemonP2.moves[1].power}</small>
+                <br />
+                <small>PP: {pokemonP2.moves[1].pp}</small>
+              </button>
+              <button className='button-attackp2' onClick={() => attackPokemon(2, pokemonP2, pokemonP1, pokemonP2.moves[2])} >
+                <b>{pokemonP2.moves[2].name}</b>
+                <br />
+                <small>Power: {pokemonP2.moves[2].power}</small>
+                <br />
+                <small>PP: {pokemonP2.moves[2].pp}</small>
+              </button>
+              <button className='button-attackp2' onClick={() => attackPokemon(2, pokemonP2, pokemonP1, pokemonP2.moves[3])} >
+                <b>{pokemonP2.moves[3].name}</b>
+                <br />
+                <small>Power: {pokemonP2.moves[3].power}</small>
+                <br />
+                <small>PP: {pokemonP2.moves[3].pp}</small>
+              </button>
             </div>
             
           </div>
         </div>
 
         <div className='right'>
-          <p></p>
-            <div className="info">General info: 
-                <p>Now both players have selected a Pokémon, it's time to battle! You can see your Pokémon and your opponent's Pokémon in the battlefield in the top-left of your screen. You and your opponent will take turns to attack. The player who takes down the Pokémon of their opponent, wins! Below the battlefield, you can see which attacks you can use. There's attack 1 through 4, and all 4 attacks have different uses. Continue reading to get to know more about the attack's strengths and limits!</p>
-            </div>
-            <div className="attack-info">Attack 1:
-                <p>Attack 1 is a quick, weaker attack that doesn't take a lot of energy to use. Can be used to energy-efficiently chip down your opponent's HP, doing a small test to see how much HP the opponent's Pokémon has, or finishing a Pokémon off without having to waste a lot of energy on bigger attacks.</p>
-            </div>
-            <div className="attack-info">Attack 2:
-                <p>Attack 2 is a stronger and more energy-requiring attack that deals elemental damage. If you're using a Fire type, you will deal fire damage to your opponent. How effective the elemental damage will be, depends on your opponent's Pokémon's resistance to it. Can be used to get ahead of your opponent by taking your Pokémon's type to your advantage.</p>
-            </div>
-            <div className="attack-info">Attack 3:
-                <p>Attack 3 is a powerful attack that will deal tons of damage to your opponent's Pokémon. But it will also nearly completely deplete your energy meter. It's a powerful move with clear limits. Use it to catch up with your opponent when it comes do damage, or use it when good energy management is not your priority.</p>
-            </div>
-            <div className="attack-info">Attack 4:
-                <p>Attack 4 is the strongest attack in your arsenal. Not only does it do a lot of damage, it also gives you an extra turn! You can only use this attack once a match, so be careful with how you use it!</p>
-            </div>
+          <div className="info">General info: 
+            <p>Now both players have selected a Pokémon, it's time to battle! You can see your Pokémon and your opponent's Pokémon in the battlefield in the top-left of your screen. You and your opponent will take turns to attack. The player who takes down the Pokémon of their opponent, wins! Below the battlefield, you can see which attacks you can use. There's attack 1 through 4, and all 4 attacks have different uses. Continue reading to get to know more about the attack's strengths and limits!</p>
+          </div>
+          </div>
         </div>
-      </div>
     </>
   )
 };
